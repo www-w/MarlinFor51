@@ -16,6 +16,8 @@ void main(void){
     ET0=1;
     EA=1;
     TR0=1;
+    GcodeInit();
     GcodeSuite_reset_stepper_timeout();
+
     while(1){;}
 }

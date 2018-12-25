@@ -39,3 +39,6 @@ extern inline void home_all_axes(){
 void GcodeSuite_dwell(millis_t time);
 void GcodeSuite_G0_G1(unsigned char fast_move); //default false
 void GcodeSuite_G2_G3(const unsigned char clockwise);
+void GcodeSuite_G28(const unsigned char always_home_all);
+
+void GcodeInit();
