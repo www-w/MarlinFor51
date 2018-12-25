@@ -1,2 +1,3 @@
 #pragma once
-#define millis_t unsigned long
+#include <stdint.h>
+typedef uint32_t millis_t;
