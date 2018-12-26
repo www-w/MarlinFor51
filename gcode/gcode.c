@@ -14,3 +14,15 @@ void GcodeInit(){
 int8_t GcodeSuite_get_target_extruder_from_command(){
     return 0;
 }
+
+/**
+  * SET XYZE destination and feedrate from the current GCode command
+  *
+  * - Set destination from included axis codes
+  * - Set to current for missing axis codes
+  * - Set the feedrate, if included
+  */
+void GcodeSuite_get_destination_from_command(){
+	LOOP_XYZE(i){
+	}
+}
