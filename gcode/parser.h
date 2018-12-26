@@ -25,4 +25,43 @@ struct GCodeParser {
 	char command_letter;	// G, M, or T
 	int codenum;			// 123
 
+}paser;
+
+extern inline bool GCodeParser_valid_signless(const char * const p){
+	return NUMERIC(p[0]) || (p[0] == '.' && NUMERIC(p[1])); //.?[0-9]
+}
+extern inline bool GCodeParser_valid_float(const char * const p){
+	return valid_signless(p) || ((p[0] == '-' || p[0] == '+') && valid_signless(&p[1])); //[+-]?[0-9]?.?[0-9]
+}
+
+/** Code is found in the string. If not found, value_ptr is unchanged.
+  * This allows "if (seen('A')||seen('B'))" to use the last-found value.
+  */
+extern inline bool GCodeParser_seen(const char c){
+	char *p = strchr(paser.command_args, c);
+	if(p) paser.value_ptr = GCodeParser_valid_float(&p[1]) ? &p[1] : (char*)NULL;
+	return !!p;
+}
+
+extern inline bool GCodeParser_seen_any(){
+	return *(paser.command_args) == '\0';
+}
+
+#define SEEN_TEST(L) !!strchr(paser.command_args, L)
+extern inline bool GCodeParser_seen_axis(){
+	return SEEN_TEST('X') || SEEN_TEST('Y') || SEEN_TEST('Z') || SEEN_TEST('E');
+}
+
+// Populate all fields by parsing a single line of GCode
+// This uses 54 bytes of SRAM to speed up seen/value
+void parse(char *p);
+
+// The code value pointer was set
+extern inline bool has_value(){
+	return parser.value_ptr != Null;
+}
+
+// Seen a parameter with a value
+extern inline bool seenval(const char c) {
+	return GCodeParser_seen(c) && has_value();
 }
