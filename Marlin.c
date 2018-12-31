@@ -3,6 +3,10 @@
 
 millis_t millis=0;
 
+void idle(){
+    ;
+}
+
 //do a millisecond timer on timer0
 void Timer0(void) __interrupt 1
 {

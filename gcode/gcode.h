@@ -1,5 +1,6 @@
 #pragma once
 #include "../inc/MarlinConfig.h"
+#include "parser.h"
 #ifdef HOST_KEEPALIVE_FEATURE
     /**
      * States for managing Marlin and host communication
